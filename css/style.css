@@ -36,7 +36,7 @@ body {
 /* 顶部导航 */
 .top-nav {
     display: flex; justify-content: center; align-items: center;
-    position: sticky; top: 0; left: 0; right: 0;
+    position: fixed; top: 0; left: 0; right: 0;
     height: 70px; background: rgba(11, 16, 26, 0.85); border-bottom: none;
     backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
     z-index: 1000;
@@ -55,7 +55,7 @@ body {
 
 /* 主内容 */
 .main-content {
-    flex: 1; padding: 0 40px 60px; max-width: 1600px; margin: 0 auto; width: 100%;
+    flex: 1; padding: 0 40px 60px; max-width: 1600px; margin: 70px auto 0; width: 100%;
 }
 
 @media (max-width: 768px) {
@@ -155,11 +155,11 @@ body {
 /* 高级排序栏 */
 .custom-sort-bar {
     display: flex; justify-content: center; align-items: center; gap: 16px;
-    position: sticky; top: 70px; z-index: 990;
+    position: fixed; top: 70px; left: 0; width: 100%; z-index: 990;
     background: rgba(11, 16, 26, 0.85); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
-    padding: 0 40px 15px 40px; margin: 0 -40px; border-bottom: 1px solid rgba(255,255,255,0.05); box-sizing: border-box;
+    padding: 0 0 15px 0; margin: 0; border-bottom: 1px solid rgba(255,255,255,0.05); box-sizing: border-box;
 }
-#view-funds { padding-top: 0; }
+#view-funds { padding-top: 60px; }
 .sort-label {
     font-size: 14px; color: var(--text-muted);
 }
@@ -213,11 +213,11 @@ body {
 /* 详情视图 */
 .detail-header-sticky {
     display: flex; justify-content: space-between; align-items: center;
-    position: sticky; top: 0; z-index: 1000;
+    position: fixed; top: 0; left: 0; width: 100%; z-index: 1000; box-sizing: border-box;
     background: rgba(11, 16, 26, 0.85); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
-    padding: 15px 40px; margin: 0 -40px; border-bottom: 1px solid rgba(255,255,255,0.05);
+    padding: 15px 40px; border-bottom: 1px solid rgba(255,255,255,0.05);
 }
-#view-detail { padding-top: 0; }
+#view-detail { padding-top: 90px; }
 
 /* 响应式 */
 @media (max-width: 1024px) {
