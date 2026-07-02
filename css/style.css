@@ -218,11 +218,72 @@ body {
 }
 #view-detail { padding-top: 90px; }
 
-/* 响应式 */
+/* 响应式: 手机端优先适配大字体、大UI */
 @media (max-width: 1024px) {
     .charts-matrix, .detail-matrix { grid-template-columns: 1fr; }
     .matrix-card.col-span-2 { grid-column: span 1; }
 }
+
 @media (max-width: 768px) {
-    .hero-stats { grid-template-columns: 1fr; gap: 16px; }
+    /* 隐藏次要元素 */
+    .status-indicator { display: none; }
+    
+    /* 调整主框架内边距 */
+    .main-content { padding: 20px 15px 40px; margin-top: 80px; }
+    
+    /* 顶部导航放大 */
+    .top-nav { height: 80px; }
+    .nav-item { font-size: 18px; padding: 12px 30px; border-radius: 25px; }
+    
+    /* 核心数据大屏放大 */
+    .hero-stats { grid-template-columns: 1fr; gap: 20px; margin-bottom: 40px; }
+    .stat-card { padding: 30px 24px; border-radius: 24px; }
+    .stat-info .label { font-size: 16px; margin-bottom: 12px; }
+    .stat-info .value { font-size: 42px; margin-bottom: 12px; }
+    .stat-info .sub-label { font-size: 15px; }
+    
+    /* 图表卡片放大 */
+    .matrix-card { padding: 30px 20px; border-radius: 24px; }
+    .card-head h3 { font-size: 20px; margin-bottom: 8px; }
+    .head-desc { font-size: 14px; margin-top: 8px; line-height: 1.5; }
+    
+    /* 图表容器等比例调高 */
+    .echarts-container { height: 500px; }
+    .echarts-container.large { height: 500px; }
+    .echarts-container.small { height: 350px; }
+    .fc-chart { height: 350px; }
+    
+    /* 龙虎榜放大 */
+    .movers-sort-tabs { padding: 6px; border-radius: 12px; }
+    .mover-tab { font-size: 15px; padding: 8px 18px; border-radius: 8px; }
+    .mover-item { padding: 16px; border-radius: 16px; margin-bottom: 6px; }
+    .mover-name { font-size: 18px; margin-bottom: 6px; }
+    .mover-code { font-size: 14px; }
+    .mover-val { font-size: 20px; }
+    
+    /* 高级排序栏放大 */
+    .custom-sort-bar { top: 80px; padding: 12px 0 16px 0; }
+    .sort-btn { font-size: 16px; padding: 12px 24px; border-radius: 10px; }
+    .sort-icon { font-size: 16px; }
+    #view-funds { padding-top: 90px; }
+    
+    /* 基金列表：强制单列，放大卡片 */
+    .fund-grid { grid-template-columns: 1fr; gap: 24px; padding-top: 24px; }
+    .fund-card { padding: 30px 20px; border-radius: 24px; }
+    .fc-name { font-size: 22px; margin-bottom: 8px; }
+    .fc-tag { font-size: 13px; padding: 4px 10px; border-radius: 6px; }
+    .fc-pnl .val { font-size: 30px; }
+    .fc-pnl .rate { font-size: 16px; margin-top: 6px; }
+    .fc-data { font-size: 15px; gap: 20px; row-gap: 24px; margin-bottom: 24px; }
+    .fc-data strong { font-size: 18px; display: block; margin-top: 4px; }
+    .card-trend-tabs .mover-tab { padding: 6px 12px; font-size: 14px; }
+    
+    /* 详情页放大 */
+    .detail-header-sticky { padding: 20px; }
+    .back-btn { font-size: 16px; padding: 12px 20px; border-radius: 12px; }
+    .detail-hero h1 { font-size: 36px; margin-bottom: 16px; }
+    .detail-tags .tag { font-size: 15px; padding: 6px 16px; border-radius: 24px; margin-right: 12px; }
+    .detail-hero-stats { gap: 24px; }
+    .detail-hero-stats .label { font-size: 14px; margin-bottom: 6px; }
+    .detail-hero-stats .val { font-size: 22px; }
 }

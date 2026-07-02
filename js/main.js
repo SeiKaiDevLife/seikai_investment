@@ -24,9 +24,13 @@ function initApp() {
     }
 
     MY_HOLDINGS.forEach(item => {
+        let latestNav = item.cost_price;
+        if (item.netWorthTrend && item.netWorthTrend.length > 0) {
+            latestNav = item.netWorthTrend[item.netWorthTrend.length - 1].y || latestNav;
+        }
         state.funds[item.code] = {
             ...item,
-            gsz: item.cost_price, 
+            gsz: latestNav, 
             gszzl: 0,
             gztime: '--',
             calculatedTotalPnl: 0,
