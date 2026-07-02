@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>基金盘中监测</title>
+    <!-- 引入 Google Fonts 提升排版美感 -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            /* 颜色变量 */
+            --primary: #4F46E5;
+            --primary-hover: #4338CA;
+            --bg-color: #0F172A;
+            --card-bg: rgba(30, 41, 59, 0.7);
+            --text-main: #F8FAFC;
+            --text-muted: #94A3B8;
+            /* 中国股市习惯：红涨绿跌 */
+            --up-color: #EF4444; 
+            --down-color: #10B981; 
+            --border-color: rgba(255, 255, 255, 0.1);
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            /* 极简流光背景 */
+            background-image: 
+                radial-gradient(at 0% 0%, rgba(79, 70, 229, 0.15) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(16, 185, 129, 0.15) 0px, transparent 50%);
+            color: var(--text-main);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        /* 玻璃拟态卡片 */
+        .container {
+            background: var(--card-bg);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid var(--border-color);
+            border-radius: 24px;
+            padding: 40px;
+            width: 100%;
+            max-width: 480px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            transition: all 0.3s ease;
+        }
+
+        h1 {
+            margin-top: 0;
+            font-size: 28px;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 30px;
+            /* 渐变文字 */
+            background: linear-gradient(to right, #818CF8, #C084FC);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .search-box {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 30px;
+        }
+
+        input {
+            flex: 1;
+            background: rgba(15, 23, 42, 0.6);
+            border: 1px solid var(--border-color);
+            padding: 14px 20px;
+            border-radius: 12px;
+            color: var(--text-main);
+            font-size: 16px;
+            outline: none;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+
+        input:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.2);
+        }
+
+        button {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 0 24px;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.2s, transform 0.1s;
+        }
+
+        button:hover {
+            background: var(--primary-hover);
+        }
+
+        button:active {
+            transform: scale(0.98);
+        }
+
+        /* 结果展示区 */
+        .result-card {
+            display: none;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 24px;
+            /* 进入动画 */
+            animation: slideUp 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .fund-header {
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 16px;
+            margin-bottom: 16px;
+        }
+
+        .fund-name {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .fund-code {
+            color: var(--text-muted);
+            font-size: 14px;
+        }
+
+        .fund-stats {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        .stat-item {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .stat-label {
+            color: var(--text-muted);
+            font-size: 13px;
+        }
+
+        .stat-value {
+            font-size: 28px;
+            font-weight: 700;
+            transition: color 0.3s;
+        }
+
+        /* 动态颜色类 */
+        .stat-value.up { color: var(--up-color); }
+        .stat-value.down { color: var(--down-color); }
+        .stat-value.neutral { color: var(--text-main); }
+        
+        .update-time {
+            margin-top: 20px;
+            font-size: 12px;
+            color: var(--text-muted);
+            text-align: right;
+        }
+        
+        .error-message {
+            color: var(--up-color);
+            text-align: center;
+            display: none;
+            margin-top: 10px;
+            padding: 12px;
+            background: rgba(239, 68, 68, 0.1);
+            border-radius: 8px;
+            border: 1px solid rgba(239, 68, 68, 0.2);
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>基金盘中监测</h1>
+    <div class="search-box">
+        <!-- 提供按回车搜索的支持 -->
+        <input type="text" id="fundCodeInput" placeholder="输入6位代码 (例: 161725)" maxlength="6" onkeypress="handleKeyPress(event)">
+        <button onclick="searchFund()">查询</button>
+    </div>
+    
+    <div id="errorMessage" class="error-message">未找到该基金或接口请求失败</div>
+
+    <div id="resultCard" class="result-card">
+        <div class="fund-header">
+            <div class="fund-name" id="fundName">--</div>
+            <div class="fund-code" id="fundCodeDisplay">--</div>
+        </div>
+        <div class="fund-stats">
+            <div class="stat-item">
+                <span class="stat-label">今日估算净值</span>
+                <span class="stat-value" id="fundGsz">--</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-label">估算涨跌幅</span>
+                <span class="stat-value" id="fundGszzl">--%</span>
+            </div>
+        </div>
+        <div class="update-time" id="updateTime">估算时间: --</div>
+    </div>
+</div>
+
+<script>
+    // 定义全局的 JSONP 回调函数
+    // 天天基金的接口固定会调用名为 jsonpgz 的函数
+    window.jsonpgz = function(data) {
+        if (!data || !data.fundcode) {
+            showError();
+            return;
+        }
+        
+        // 隐藏错误，显示结果卡片
+        document.getElementById('errorMessage').style.display = 'none';
+        document.getElementById('resultCard').style.display = 'block';
+        
+        // 填充基本信息
+        document.getElementById('fundName').innerText = data.name;
+        document.getElementById('fundCodeDisplay').innerText = data.fundcode;
+        
+        // 填充估算数据
+        const gszEl = document.getElementById('fundGsz');
+        const gszzlEl = document.getElementById('fundGszzl');
+        
+        gszEl.innerText = data.gsz;
+        gszzlEl.innerText = (data.gszzl > 0 ? '+' : '') + data.gszzl + '%';
+        
+        // 根据中国股市习惯设置颜色：红涨绿跌
+        const value = parseFloat(data.gszzl);
+        if (value > 0) {
+            gszEl.className = 'stat-value up';
+            gszzlEl.className = 'stat-value up';
+        } else if (value < 0) {
+            gszEl.className = 'stat-value down';
+            gszzlEl.className = 'stat-value down';
+        } else {
+            gszEl.className = 'stat-value neutral';
+            gszzlEl.className = 'stat-value neutral';
+        }
+        
+        document.getElementById('updateTime').innerText = `估算时间: ${data.gztime}`;
+    };
+
+    // 搜索基金的方法
+    function searchFund() {
+        const code = document.getElementById('fundCodeInput').value.trim();
+        
+        // 简单校验
+        if (code.length !== 6 || isNaN(code)) {
+            alert('请输入正确的6位数字基金代码！');
+            return;
+        }
+        
+        // 动态创建 script 标签实现 JSONP 跨域请求
+        const script = document.createElement('script');
+        // 添加时间戳防止浏览器缓存
+        script.src = `http://fundgz.1234567.com.cn/js/${code}.js?rt=${new Date().getTime()}`;
+        
+        // 错误处理（比如网络断开或文件不存在）
+        script.onerror = function() {
+            showError();
+        };
+        
+        document.body.appendChild(script);
+        
+        // 请求发送完后清理 script 标签，保持 DOM 干净
+        script.onload = function() {
+            document.body.removeChild(script);
+        };
+    }
+    
+    // 显示错误的方法
+    function showError() {
+        document.getElementById('resultCard').style.display = 'none';
+        document.getElementById('errorMessage').style.display = 'block';
+    }
+
+    // 支持回车键搜索
+    function handleKeyPress(e) {
+        if (e.key === 'Enter') {
+            searchFund();
+        }
+    }
+</script>
+
+</body>
+</html>
