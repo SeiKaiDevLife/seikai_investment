@@ -243,7 +243,7 @@ function fetchRealTimeEstimates() {
             script.onerror = () => { script.remove(); wrapResolve(); };
             script.onload = () => { script.remove(); wrapResolve(); };
             document.body.appendChild(script);
-            setTimeout(wrapResolve, 2000); // 2 seconds timeout to prevent hanging
+            setTimeout(wrapResolve, 8000); // 8 seconds timeout to allow slow API responses
         });
     });
 
@@ -497,14 +497,14 @@ function renderOverallTrendChart() {
                 borderColor: '#F92F60',
                 borderColor0: '#00C087'
             },
-            markPoint: {
-                symbol: 'pin',
-                symbolSize: 45,
-                label: { color: '#fff', fontSize: 10, formatter: '{c}%' },
+            markLine: {
+                symbol: ['none', 'none'],
+                label: { position: 'insideStartTop', formatter: '{b}: {c}', color: 'inherit', distance: 3, fontSize: 11 },
+                lineStyle: { type: 'dashed', width: 1, opacity: 0.8 },
                 data: [
-                    { type: 'max', valueDim: 'highest', name: '最高点', itemStyle: { color: '#F92F60' } },
-                    { type: 'min', valueDim: 'lowest', name: '最低点', itemStyle: { color: '#00C087' } },
-                    { coord: [filteredX.length - 1, kLineData[kLineData.length - 1][1]], name: '最新', itemStyle: { color: '#6366F1' }, value: kLineData[kLineData.length - 1][1] }
+                    { type: 'max', valueDim: 'highest', name: '最高', lineStyle: { color: '#F92F60' } },
+                    { type: 'min', valueDim: 'lowest', name: '最低', lineStyle: { color: '#00C087' } },
+                    { yAxis: kLineData[kLineData.length - 1][1], name: '今日', lineStyle: { color: '#6366F1' } }
                 ]
             }
         }]
@@ -593,12 +593,14 @@ function renderSparklineChart(code) {
             type: 'candlestick', 
             data: kLineData,
             itemStyle: { color: '#F92F60', color0: '#00C087', borderColor: '#F92F60', borderColor0: '#00C087' },
-            markPoint: {
-                symbol: 'pin', symbolSize: 30, label: { fontSize: 9, color: '#fff' },
+            markLine: {
+                symbol: ['none', 'none'],
+                label: { position: 'insideStartTop', formatter: '{b}: {c}', color: 'inherit', distance: 3, fontSize: 10 },
+                lineStyle: { type: 'dashed', width: 1, opacity: 0.8 },
                 data: [
-                    { type: 'max', valueDim: 'highest', name: '最高', itemStyle: { color: '#F92F60' } },
-                    { type: 'min', valueDim: 'lowest', name: '最低', itemStyle: { color: '#00C087' } },
-                    { coord: [recentX.length - 1, kLineData[kLineData.length - 1][1]], name: '最新', itemStyle: { color: '#6366F1' }, value: kLineData[kLineData.length - 1][1] }
+                    { type: 'max', valueDim: 'highest', name: '最高', lineStyle: { color: '#F92F60' } },
+                    { type: 'min', valueDim: 'lowest', name: '最低', lineStyle: { color: '#00C087' } },
+                    { yAxis: kLineData[kLineData.length - 1][1], name: '今日', lineStyle: { color: '#6366F1' } }
                 ]
             }
         }]
