@@ -59,7 +59,6 @@ body {
 }
 
 @media (max-width: 768px) {
-    .top-nav { height: 60px; }
     .status-indicator { display: none; }
     .main-content { padding: 20px 15px 40px; }
 }
