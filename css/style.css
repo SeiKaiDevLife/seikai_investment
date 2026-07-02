@@ -274,7 +274,7 @@ body {
     .sort-buttons { flex-wrap: nowrap; justify-content: space-between; width: 100%; gap: 4px; padding: 2px; }
     .sort-btn { font-size: 13px; padding: 8px 0; flex: 1; min-width: 0; text-align: center; justify-content: center; white-space: nowrap; margin: 0; letter-spacing: -0.5px; }
     .sort-icon { width: auto; margin-left: 2px; }
-    #view-funds { padding-top: 110px; } 
+    #view-funds { padding-top: 45px; } 
     
     /* 基金列表：高度紧凑，去掉顶部多余间距 */
     .fund-grid { grid-template-columns: 1fr; gap: 16px; padding-top: 0px; }
