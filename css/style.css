@@ -37,7 +37,7 @@ body {
 .top-nav {
     display: flex; justify-content: center; align-items: center;
     position: sticky; top: 0; left: 0; right: 0;
-    height: 70px; background: rgba(11, 16, 26, 0.85); border-bottom: 1px solid rgba(255,255,255,0.05);
+    height: 70px; background: rgba(11, 16, 26, 0.85); border-bottom: none;
     backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
     z-index: 1000;
 }
@@ -157,7 +157,7 @@ body {
     display: flex; justify-content: center; align-items: center; gap: 16px;
     position: sticky; top: 70px; z-index: 990;
     background: rgba(11, 16, 26, 0.85); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
-    padding: 15px 40px; margin: 0 -40px; border-bottom: 1px solid rgba(255,255,255,0.05); box-sizing: border-box;
+    padding: 0 40px 15px 40px; margin: 0 -40px; border-bottom: 1px solid rgba(255,255,255,0.05); box-sizing: border-box;
 }
 #view-funds { padding-top: 0; }
 .sort-label {
