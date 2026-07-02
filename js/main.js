@@ -239,7 +239,7 @@ function fetchRealTimeEstimates() {
             const wrapResolve = () => { if (!resolved) { resolved = true; resolve(); } };
             jsonpResolvers[code] = wrapResolve;
             const script = document.createElement('script');
-            script.src = `http://fundgz.1234567.com.cn/js/${code}.js?rt=${new Date().getTime()}`;
+            script.src = `https://fundgz.1234567.com.cn/js/${code}.js?rt=${new Date().getTime()}`;
             script.onerror = () => { script.remove(); wrapResolve(); };
             script.onload = () => { script.remove(); wrapResolve(); };
             document.body.appendChild(script);

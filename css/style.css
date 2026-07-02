@@ -36,8 +36,8 @@ body {
 /* 顶部导航 */
 .top-nav {
     display: flex; justify-content: center; align-items: center;
-    position: fixed; top: 0; left: 0; right: 0;
-    height: 70px; background: rgba(11, 16, 26, 0.85); border-bottom: 1px solid var(--border-color);
+    position: sticky; top: 0; left: 0; right: 0;
+    height: 70px; background: rgba(11, 16, 26, 0.85); border-bottom: 1px solid rgba(255,255,255,0.05);
     backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
     z-index: 1000;
 }
@@ -55,7 +55,7 @@ body {
 
 /* 主内容 */
 .main-content {
-    flex: 1; padding: 20px 40px 60px; max-width: 1600px; margin: 70px auto 0; width: 100%;
+    flex: 1; padding: 0 40px 60px; max-width: 1600px; margin: 0 auto; width: 100%;
 }
 
 @media (max-width: 768px) {
@@ -68,6 +68,7 @@ body {
 .kpi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; margin-bottom: 32px; }
 
 /* 英雄数据大屏 */
+#view-home { padding-top: 30px; }
 .hero-stats {
     display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; margin-bottom: 30px;
 }
@@ -126,7 +127,7 @@ body {
 
 /* 基金网格 (Funds View) */
 .fund-grid {
-    display: grid; grid-template-columns: repeat(auto-fill, minmax(420px, 1fr)); gap: 24px;
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(420px, 1fr)); gap: 24px; padding-top: 24px;
 }
 .fund-card {
     background: var(--bg-card); border: 1px solid var(--border-color);
@@ -154,11 +155,11 @@ body {
 /* 高级排序栏 */
 .custom-sort-bar {
     display: flex; justify-content: center; align-items: center; gap: 16px;
-    position: fixed; top: 70px; left: 0; width: 100%; z-index: 990;
-    background: rgba(18, 24, 38, 0.95); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
-    padding: 15px 40px; margin: 0; border-bottom: 1px solid rgba(255,255,255,0.05); box-sizing: border-box;
+    position: sticky; top: 70px; z-index: 990;
+    background: rgba(11, 16, 26, 0.85); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+    padding: 15px 40px; margin: 0 -40px; border-bottom: 1px solid rgba(255,255,255,0.05); box-sizing: border-box;
 }
-#view-funds { padding-top: 60px; }
+#view-funds { padding-top: 0; }
 .sort-label {
     font-size: 14px; color: var(--text-muted);
 }
@@ -212,11 +213,11 @@ body {
 /* 详情视图 */
 .detail-header-sticky {
     display: flex; justify-content: space-between; align-items: center;
-    position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
-    background: rgba(18, 24, 38, 0.95); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
-    padding: 15px 40px; border-bottom: 1px solid rgba(255,255,255,0.05);
+    position: sticky; top: 0; z-index: 1000;
+    background: rgba(11, 16, 26, 0.85); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+    padding: 15px 40px; margin: 0 -40px; border-bottom: 1px solid rgba(255,255,255,0.05);
 }
-#view-detail { padding-top: 50px; }
+#view-detail { padding-top: 0; }
 
 /* 响应式 */
 @media (max-width: 1024px) {
