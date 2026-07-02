@@ -266,15 +266,18 @@ body {
     .echarts-container.small { height: 250px; }
     .fc-chart { height: 200px; }
     
-    /* 高级排序栏：允许按钮换行，防止文字折行 */
-    .custom-sort-bar { top: 60px; padding: 10px 12px; flex-wrap: wrap; gap: 8px; }
-    .sort-label { display: none; } /* 手机端隐藏“排序”字样省空间 */
-    .sort-buttons { flex-wrap: wrap; justify-content: center; width: 100%; gap: 4px; }
-    .sort-btn { font-size: 14px; padding: 8px 12px; flex: 1; text-align: center; justify-content: center; white-space: nowrap; }
-    #view-funds { padding-top: 110px; } /* 留出两行按钮的空间 */
+    #view-home { padding-top: 0px; }
     
-    /* 基金列表：强制单列，高度紧凑 */
-    .fund-grid { grid-template-columns: 1fr; gap: 16px; padding-top: 16px; }
+    /* 高级排序栏：彻底缩减内边距，强制一排显示3个按钮 */
+    .custom-sort-bar { top: 60px; padding: 8px 4px; width: 100%; border-bottom: none; }
+    .sort-label { display: none; } 
+    .sort-buttons { flex-wrap: nowrap; justify-content: space-between; width: 100%; gap: 4px; padding: 2px; }
+    .sort-btn { font-size: 13px; padding: 8px 0; flex: 1; min-width: 0; text-align: center; justify-content: center; white-space: nowrap; margin: 0; letter-spacing: -0.5px; }
+    .sort-icon { width: auto; margin-left: 2px; }
+    #view-funds { padding-top: 110px; } 
+    
+    /* 基金列表：高度紧凑，去掉顶部多余间距 */
+    .fund-grid { grid-template-columns: 1fr; gap: 16px; padding-top: 0px; }
     .fund-card { padding: 16px; border-radius: 16px; }
     .fc-name { font-size: 18px; line-height: 1.3; margin-bottom: 6px; }
     .fc-tag { font-size: 12px; padding: 2px 6px; }
