@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>OSS 密钥本地加密工具</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+    <style>
+        body { font-family: sans-serif; background: #1e1e1e; color: #fff; padding: 40px; }
+        .box { background: #2d2d2d; padding: 30px; border-radius: 12px; max-width: 500px; margin: 0 auto; }
+        input { width: 100%; padding: 10px; margin-bottom: 15px; border-radius: 6px; border: 1px solid #444; background: #111; color: #fff; box-sizing: border-box; }
+        button { background: #4f46e5; color: #fff; padding: 10px 20px; border: none; border-radius: 6px; cursor: pointer; width: 100%; }
+        textarea { width: 100%; height: 100px; margin-top: 15px; border-radius: 6px; border: 1px solid #444; background: #111; color: #0f0; padding: 10px; box-sizing: border-box; }
+    </style>
+</head>
+<body>
+    <div class="box">
+        <h2>OSS 密钥加密工具</h2>
+        <p style="font-size: 14px; color: #aaa;">此工具完全在本地浏览器运行，断网可用，绝对安全。</p>
+        <label>AccessKey ID:</label>
+        <input type="text" id="ak" placeholder="输入你的 AK">
+        <label>AccessKey Secret:</label>
+        <input type="text" id="sk" placeholder="输入你的 SK">
+        <label>你的网页登录密码 (加密密钥):</label>
+        <input type="password" id="pwd" placeholder="设置一个你登录看板用的密码">
+        <button onclick="encrypt()">一键加密生成</button>
+        
+        <label style="margin-top:20px; display:block;">生成的加密凭证 (请复制填入 js/main.js 的 ENCRYPTED_CREDENTIALS 中):</label>
+        <textarea id="result" readonly></textarea>
+    </div>
+
+    <script>
+        function encrypt() {
+            const ak = document.getElementById('ak').value.trim();
+            const sk = document.getElementById('sk').value.trim();
+            const pwd = document.getElementById('pwd').value;
+            if(!ak || !sk || !pwd) return alert("请填写完整");
+            
+            const payload = JSON.stringify({ id: ak, secret: sk });
+            const encrypted = CryptoJS.AES.encrypt(payload, pwd).toString();
+            document.getElementById('result').value = encrypted;
+        }
+    </script>
+</body>
+</html>
